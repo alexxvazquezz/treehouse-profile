@@ -1,25 +1,46 @@
-// The 4 p's to problem solving
-// Preperation
-// Plan
-// Perform
-// Perfect
-// Problem: We need a simple way to look at a user's badge cound and JS points from a web browser
-// Solution: Use Node.js to perform the profile look ups and server our templates via HTTP
+// The 4 p's of problem solving
 
-//1. Create a web-server
-//2. Handle HTTP route GET / and Post / Home
- //Sudo Code
- // if url === "/" && GET
-  // Show search Field
+// Preperation --
+// Problem: We need a simple way to view a user's badge count and JavaScirpt point from a web browswer
+// Solution: User Node.js to perform the the profile lookup and serve our template via http
+
+// Plan --
+// 1. Create a Web Server
+const http = require('http');
+http.createServer(function(request, response) {
+  homeRoute(request, response)
+  //response.end('Hello World\n');
+}).listen(4000, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:4000/');
+// 2. Handle HTTP route GET / and POST / HOME
+function homeRoute(request, response) {
+  // if url == "/" && GET
+  if (request.url === "/") {
+    // Show search field
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write("Header\n")
+    response.write("Search\n")
+    response.end("Footer\n")
+  }
   // if url == "/" && POST
-    // Rederict to /:username
-//3. Handle HTTP route Get /:username i.e /chalkers
-  //if url == "/..."
-    // get json from Treehouse
-      //on "end"
-        //Show profile
-      //on "error"
-        // Show Error
-//4. Function that handles reading of files and merge in value
+    // Redirect to UserName
+}
+// 3. Handle HTTP route GET /:username
+function userRoute(request, response) {
+  // if url == "/..."
+  var username = request.url.replace("/", "");
+  if (username.length > 0) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write("Header\n")
+    response.write(username + "\n")
+    response.end("Footer\n")
+  }
+   // get json from Treehouse
+    // on "end" (all data has come back)
+      // Show profile
+    // on "error"
+      // Show error
+}
+// 4. Function that handles the reading and the merging of the data (JSON)
   // Read from file and get a string
-  // Merge values into string
+    // Merge values into string
